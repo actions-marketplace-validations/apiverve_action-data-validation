@@ -1,0 +1,33 @@
+{
+  "name": "@apiverve/action-data-validation",
+  "version": "0.1.0-beta",
+  "description": "Validate phone numbers, VAT IDs, IBANs, and other data formats",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build index.js -o dist --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apiverve/action-data-validation.git"
+  },
+  "keywords": [
+    "validation",
+    "phone",
+    "vat",
+    "iban",
+    "data"
+  ],
+  "author": "APIVerve <support@apiverve.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apiverve/action-data-validation/issues"
+  },
+  "homepage": "https://github.com/apiverve/action-data-validation#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.1"
+  }
+}
