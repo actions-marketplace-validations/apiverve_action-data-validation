@@ -1,6 +1,6 @@
 {
   "name": "@apiverve/action-data-validation",
-  "version": "0.1.0-beta",
+  "version": "1.0.0",
   "description": "Validate phone numbers, VAT IDs, IBANs, and other data formats",
   "main": "dist/index.js",
   "scripts": {

@@ -2,9 +2,7 @@
 
 > Validate phone numbers, VAT IDs, IBANs, and other data formats
 
-> **Beta Release** - This action is in beta. We'd love your feedback! [Open an issue](https://github.com/apiverve/action-data-validation/issues) if you encounter any problems.
-
-[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Data Validation-blue?logo=github)](https://github.com/marketplace/actions/apiverve-data-validation)
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Data_Validation-blue?logo=github)](https://github.com/apiverve/action-data-validation)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **[Browse All APIs](https://apiverve.com/marketplace?utm_source=github&utm_medium=action&utm_campaign=data-validation)** | **[Get Free API Key](https://dashboard.apiverve.com/signup?utm_source=github&utm_medium=action&utm_campaign=data-validation)** | **[Documentation](https://docs.apiverve.com?utm_source=github&utm_medium=action&utm_campaign=data-validation)**
@@ -24,11 +22,9 @@ This action provides access to APIVerve's Data Validation APIs directly in your 
 
 | API | Description |
 |-----|-------------|
-| `phonenumbervalidator` | Phone Number Validator is a simple tool for validating if a phone number is valid or not. It checks the phone number format and the country code to see if the phone number is valid. |
-| `vatvalidator` | vatvalidator API |
-| `ibanvalidator` | ibanvalidator API |
-| `binlookup` | BIN Lookup is a simple tool for looking up BIN number information. It returns information such as the bank, card type, and more based on the BIN number provided. |
-| `routinglookup` | Routing Number Lookup is a simple tool for looking up routing number information for USA Banks. It returns information such as the bank, location, and more based on the routing number provided. |
+| `phonenumbervalidator` | Phone Number Validator checks a phone number and country code to determine validity, line type, and country of origin. It flags disposable or VoIP numbers and outputs standardized international, national, RFC3966, and E.164 formats. |
+| `binlookup` | BIN Lookup checks the first six digits of a payment card to return card brand, type, issuing bank, and country of issuance. Pass a card BIN to inspect whether incoming cards are debit, credit, or prepaid. |
+| `routinglookup` | Routing Number Lookup verifies US ABA routing numbers to confirm bank names, states, and checksum validity. It identifies the routing type and Federal Reserve district, while paid plans add full street addresses, branch details, and replacement numbers. |
 
 ---
 
@@ -40,7 +36,7 @@ This action provides access to APIVerve's Data Validation APIs directly in your 
   with:
     api_key: ${{ secrets.APIVERVE_KEY }}
     api: phonenumbervalidator
-    params: '{&quot;number&quot;: &quot;+14155551234&quot;}'
+    params: '{"number": "+14155551234", "country": "us"}'
 ```
 
 ---
@@ -76,12 +72,11 @@ Go to your repository **Settings** → **Secrets and variables** → **Actions**
 | Input | Description | Required | Default |
 |-------|-------------|----------|---------|
 | `api_key` | Your APIVerve API key (or set `APIVERVE_API_KEY` env var) | Yes* | - |
-| `api` | API to use: `phonenumbervalidator`, `vatvalidator`, `ibanvalidator`, `binlookup`, `routinglookup` | No | `phonenumbervalidator` |
+| `api` | API to use: `phonenumbervalidator`, `binlookup`, `routinglookup` | No | `phonenumbervalidator` |
 | `params` | JSON parameters for the API | No | `{}` |
 | `output_file` | Path to save binary output (images, PDFs) | No | - |
 | `format` | Response format: `json`, `yaml`, or `xml` | No | `json` |
 | `fail_on_error` | Fail workflow if API returns error | No | `true` |
-
 *\*API key is required but can be provided via input OR `APIVERVE_API_KEY` / `APIVERVE_KEY` environment variable.*
 
 ## Outputs
@@ -92,7 +87,6 @@ Go to your repository **Settings** → **Secrets and variables** → **Actions**
 | `data` | The `data` field from response as JSON |
 | `status` | API status (`ok` or `error`) |
 | `file` | Path to downloaded file (if `output_file` was used) |
-
 ---
 
 ## Examples
@@ -108,27 +102,10 @@ Validate a phone number
   with:
     api_key: ${{ secrets.APIVERVE_KEY }}
     api: phonenumbervalidator
-    params: '{&quot;number&quot;: &quot;+14155551234&quot;}'
+    params: '{"number": "+14155551234", "country": "us"}'
 
 - name: Use result
   run: echo "Result: ${{ steps.data-validation-0.outputs.data }}"
-```
-
-### VAT Validation
-
-Validate a VAT ID
-
-```yaml
-- name: VAT Validation
-  id: data-validation-1
-  uses: apiverve/action-data-validation@v1
-  with:
-    api_key: ${{ secrets.APIVERVE_KEY }}
-    api: vatvalidator
-    params: '{&quot;vatid&quot;: &quot;DE123456789&quot;}'
-
-- name: Use result
-  run: echo "Result: ${{ steps.data-validation-1.outputs.data }}"
 ```
 
 
@@ -156,7 +133,7 @@ jobs:
         with:
           api_key: ${{ secrets.APIVERVE_KEY }}
           api: phonenumbervalidator
-          params: '{&quot;number&quot;: &quot;+14155551234&quot;}'
+          params: '{"number": "+14155551234", "country": "us"}'
 
       - name: Show result
         run: |
